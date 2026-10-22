@@ -6,9 +6,6 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.pathly.DatabaseHelper
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -16,16 +13,12 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var etCorreo: EditText
     private lateinit var etPassword: EditText
     private lateinit var etFechaNacimiento: EditText
-
     private lateinit var etEdad: EditText
-
     private lateinit var etAltura: EditText
-
     private lateinit var etPeso: EditText
     private lateinit var bntRegistrar: Button
 
     private lateinit var dbHelper: DatabaseHelper
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,44 +34,51 @@ class RegisterActivity : AppCompatActivity() {
         etPeso = findViewById(R.id.etPeso)
         bntRegistrar = findViewById(R.id.btnRegistrar)
 
-
-
-        // Crear el evento para registrar un usuario
+        // Inicializar la base de datos
         dbHelper = DatabaseHelper(this)
 
+        // Crear el evento para registrar un usuario
         bntRegistrar.setOnClickListener {
             registrarUsuario()
         }
-
     }
 
     private fun registrarUsuario() {
-        // Obtener la informacion que escribe el usuario
+        // Obtener la información que escribe el usuario
         val nombre = etNombre.text.toString().trim()
         val correo = etCorreo.text.toString().trim()
         val pass = etPassword.text.toString().trim()
-        val fechan = etFechaNacimiento.text.toString().trim()
-        val edad = etEdad.text.toString().trim()
-        val altura = etAltura.text.toString().trim()
-        val peso = etPeso.text.toString().trim()
+        val fechanStr = etFechaNacimiento.text.toString().trim()
+        val edadStr = etEdad.text.toString().trim()
+        val alturaStr = etAltura.text.toString().trim()
+        val pesoStr = etPeso.text.toString().trim()
 
-
-
-        // validar que el usuario llene los campos
-        if (nombre.isEmpty() || correo.isEmpty() || pass.isEmpty() || fechan.isEmpty() || edad.isEmpty()|| altura.isEmpty()|| peso.isEmpty()) {
+        // Validar que el usuario llene los campos
+        if (nombre.isEmpty() || correo.isEmpty() || pass.isEmpty() || fechanStr.isEmpty() || edadStr.isEmpty() || alturaStr.isEmpty() || pesoStr.isEmpty()) {
             Toast.makeText(this, "Complete los campos", Toast.LENGTH_LONG).show()
             return
         }
-        val resultado = dbHelper.registrarUsuario(nombre, correo, pass, fechan, edad, altura, peso)
 
-        if (resultado) {
-            // Si el resultado es verdadero
-            Toast.makeText(this, "Regustro exitoso", Toast.LENGTH_LONG).show()
+        // Convertir los valores de texto a Int de forma segura
+        val fecha = fechanStr.toIntOrNull()
+        val edad = edadStr.toIntOrNull()
+        val altura = alturaStr.toIntOrNull()
+        val peso = pesoStr.toIntOrNull()
 
-        } else {
-            Toast.makeText(this,"Error al registrar", Toast.LENGTH_SHORT).show()
+        if (fecha == null || edad == null || altura == null || peso == null) {
+            Toast.makeText(this, "Ingrese valores numéricos válidos en fecha, edad, altura y peso", Toast.LENGTH_LONG).show()
+            return
         }
 
-    }
+        // Llamar al método pasando las variables correctas
+        val resultado = dbHelper.registrarUsuario(nombre, correo, pass, fecha, edad, altura, peso)
 
+        if (resultado) {
+            Toast.makeText(this, "Registro exitoso", Toast.LENGTH_LONG).show()
+            // Opcional: limpiar campos o cerrar la actividad de registro
+            finish()
+        } else {
+            Toast.makeText(this, "Error al registrar (es posible que el correo ya esté registrado)", Toast.LENGTH_SHORT).show()
+        }
+    }
 }
