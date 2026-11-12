@@ -9,186 +9,225 @@
     android:background="#E1EDC0"
     tools:context=".PrincipalActivity">
 
+    <!-- MAPA DE FONDO -->
     <WebView
         android:id="@+id/webMapa"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#E1EDC0"/>
 
-    <!-- PANEL SUPERIOR DEL PRONOSTICO -->
-    <com.google.android.material.card.MaterialCardView
+    <!-- CONTENEDOR DE LOS PANELES -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginTop="15dp"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="8dp"
-        app:cardBackgroundColor="#EDE1EDC0">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <!-- PANEL SUPERIOR -->
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="15dp">
-
-            <TextView
-                android:id="@+id/tvUbicacion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Cuernavaca, Morelos"
-                android:textColor="#914037"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:gravity="center"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="PRONÓSTICO DEL CLIMA"
-                android:textColor="#37915D"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="15dp"/>
-
-            <!-- TRES CONSULTAS -->
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="none">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btnClimaActual"
-                        android:layout_width="110dp"
-                        android:layout_height="55dp"
-                        android:layout_marginEnd="8dp"
-                        android:background="@drawable/bg_button"
-                        android:text="Clima actual"
-                        android:textColor="#914037"
-                        android:textSize="13sp"
-                        android:textAllCaps="false"
-                        android:textStyle="bold"/>
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btnPronosticoHoras"
-                        android:layout_width="110dp"
-                        android:layout_height="55dp"
-                        android:layout_marginEnd="8dp"
-                        android:background="@drawable/bg_button"
-                        android:text="Por horas"
-                        android:textColor="#914037"
-                        android:textSize="13sp"
-                        android:textAllCaps="false"
-                        android:textStyle="bold"/>
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btnPronosticoSemanal"
-                        android:layout_width="110dp"
-                        android:layout_height="55dp"
-                        android:background="@drawable/bg_button"
-                        android:text="7 días"
-                        android:textColor="#914037"
-                        android:textSize="13sp"
-                        android:textAllCaps="false"
-                        android:textStyle="bold"/>
-
-                </LinearLayout>
-            </HorizontalScrollView>
-
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <!-- TARJETA INFERIOR -->
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="20dp"
-        app:cardCornerRadius="25dp"
-        app:cardElevation="10dp"
-        app:cardBackgroundColor="#F0AD98A9">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="18dp">
-
-            <TextView
-                android:id="@+id/tvTituloClima"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Clima actual"
-                android:textSize="20sp"
-                android:textColor="#914037"
-                android:textStyle="bold"/>
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="15dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="#EDE1EDC0">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginTop="10dp">
+                android:orientation="vertical"
+                android:padding="15dp">
 
-                <ImageView
-                    android:id="@+id/ivClima"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
-                    android:contentDescription="Icono del clima"
-                    android:scaleType="fitCenter"/>
-
+                <!-- UBICACION -->
                 <TextView
-                    android:id="@+id/tvTemperatura"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tvUbicacion"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="-- °C"
-                    android:textSize="32sp"
-                    android:textStyle="bold"
+                    android:text="Cuernavaca, Morelos"
                     android:textColor="#914037"
-                    android:layout_marginStart="10dp"/>
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
 
+                <!-- TITULO -->
                 <TextView
-                    android:id="@+id/tvDetalleClima"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Consultando clima..."
-                    android:textColor="#333333"
-                    android:textSize="14sp"
+                    android:text="PRONÓSTICO DEL CLIMA"
+                    android:textColor="#37915D"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
                     android:gravity="center"
-                    android:layout_marginStart="12dp"/>
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="12dp"/>
+
+                <!-- BOTONES DE CONSULTA -->
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <!-- CLIMA ACTUAL -->
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btnClimaActual"
+                            android:layout_width="105dp"
+                            android:layout_height="50dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/bg_button"
+                            android:text="Clima actual"
+                            android:textColor="#914037"
+                            android:textSize="12sp"
+                            android:textAllCaps="false"
+                            android:textStyle="bold"/>
+
+                        <!-- POR HORAS -->
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btnPronosticoHoras"
+                            android:layout_width="105dp"
+                            android:layout_height="50dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/bg_button"
+                            android:text="Por horas"
+                            android:textColor="#914037"
+                            android:textSize="12sp"
+                            android:textAllCaps="false"
+                            android:textStyle="bold"/>
+
+                        <!-- SIETE DIAS -->
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btnPronosticoSemanal"
+                            android:layout_width="105dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/bg_button"
+                            android:text="7 días"
+                            android:textColor="#914037"
+                            android:textSize="12sp"
+                            android:textAllCaps="false"
+                            android:textStyle="bold"/>
+
+                    </LinearLayout>
+                </HorizontalScrollView>
 
             </LinearLayout>
 
-            <!-- INFORMACION DE LAS CONSULTAS -->
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="110dp"
-                android:layout_marginTop="10dp"
-                android:fillViewport="true">
+        </com.google.android.material.card.MaterialCardView>
 
+        <!-- ESPACIO LIBRE PARA MOSTRAR EL MAPA -->
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <!-- TARJETA INFERIOR DEL CLIMA -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="20dp"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="10dp"
+            app:cardBackgroundColor="#F0AD98A9">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <!-- TITULO DEL CLIMA -->
                 <TextView
-                    android:id="@+id/tvDatosExtra"
+                    android:id="@+id/tvTituloClima"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Selecciona una consulta para visualizar el pronóstico."
-                    android:textColor="#333333"
+                    android:text="Clima actual"
+                    android:textSize="19sp"
+                    android:textColor="#914037"
+                    android:textStyle="bold"/>
+
+                <!-- IMAGEN Y TEMPERATURA -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="8dp">
+
+                    <!-- ICONO DEL CLIMA -->
+                    <ImageView
+                        android:id="@+id/ivClima"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:contentDescription="Icono del clima"
+                        android:scaleType="fitCenter"/>
+
+                    <!-- TEMPERATURA -->
+                    <TextView
+                        android:id="@+id/tvTemperatura"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-- °C"
+                        android:textSize="29sp"
+                        android:textStyle="bold"
+                        android:textColor="#914037"
+                        android:layout_marginStart="8dp"/>
+
+                    <!-- ESTADO DEL CLIMA -->
+                    <TextView
+                        android:id="@+id/tvDetalleClima"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Consultando clima..."
+                        android:textColor="#443025"
+                        android:textSize="13sp"
+                        android:gravity="center"
+                        android:layout_marginStart="10dp"/>
+
+                </LinearLayout>
+
+                <!-- INFORMACION DEL API -->
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="95dp"
+                    android:layout_marginTop="8dp"
+                    android:fillViewport="true"
+                    android:scrollbars="vertical">
+
+                    <TextView
+                        android:id="@+id/tvDatosExtra"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Selecciona una consulta para visualizar el pronóstico."
+                        android:textColor="#443025"
+                        android:textSize="13sp"
+                        android:padding="5dp"/>
+
+                </ScrollView>
+
+                <!-- BOTON PARA ABRIR DETAILS ACTIVITY -->
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnVerDetalles"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_button"
+                    android:text="Ver detalles del clima"
+                    android:textColor="#914037"
                     android:textSize="14sp"
-                    android:padding="5dp"/>
+                    android:textAllCaps="false"
+                    android:textStyle="bold"/>
 
-            </ScrollView>
+            </LinearLayout>
 
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
 
 </FrameLayout>

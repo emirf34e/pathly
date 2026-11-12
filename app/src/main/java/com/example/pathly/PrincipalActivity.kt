@@ -2,17 +2,20 @@
 package com.example.pathly
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
+import com.example.pathly.model.ClimaActual
 import com.example.pathly.model.ClimaResponse
 import com.example.pathly.network.RetrofitClient
 import retrofit2.Call
@@ -33,11 +36,18 @@ class PrincipalActivity : AppCompatActivity() {
     private lateinit var tvTituloClima: TextView
     private lateinit var ivClima: ImageView
 
+    // BOTONES DE CONSULTAS
     private lateinit var btnClimaActual: Button
     private lateinit var btnPronosticoHoras: Button
     private lateinit var btnPronosticoSemanal: Button
 
+    // BOTON PARA ABRIR DETALLES
+    private lateinit var btnVerDetalles: Button
+
     private var consultaActiva = "actual"
+
+    // GUARDAR TEMPORALMENTE LOS DATOS DEL API
+    private var ultimoClima: ClimaActual? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +69,7 @@ class PrincipalActivity : AppCompatActivity() {
             insets
         }
 
-        // VINCULAR ELEMENTOS XML
+        // VINCULAR ELEMENTOS DEL XML
         webMapa = findViewById(R.id.webMapa)
         tvTemperatura = findViewById(R.id.tvTemperatura)
         tvDetalleClima = findViewById(R.id.tvDetalleClima)
@@ -67,19 +77,22 @@ class PrincipalActivity : AppCompatActivity() {
         tvTituloClima = findViewById(R.id.tvTituloClima)
         ivClima = findViewById(R.id.ivClima)
 
+        // BOTONES
         btnClimaActual = findViewById(R.id.btnClimaActual)
         btnPronosticoHoras =
             findViewById(R.id.btnPronosticoHoras)
         btnPronosticoSemanal =
             findViewById(R.id.btnPronosticoSemanal)
 
+        btnVerDetalles = findViewById(R.id.btnVerDetalles)
+
         // CARGAR MAPA
         cargarMapa()
 
-        // CONSULTA INICIAL
+        // CONSULTAR CLIMA AL ENTRAR
         obtenerClimaActual()
 
-        // EVENTOS DE LOS BOTONES
+        // EVENTOS DE CONSULTAS
         btnClimaActual.setOnClickListener {
             obtenerClimaActual()
         }
@@ -90,6 +103,11 @@ class PrincipalActivity : AppCompatActivity() {
 
         btnPronosticoSemanal.setOnClickListener {
             obtenerPronosticoSemanal()
+        }
+
+        // ABRIR PANTALLA DE DETALLES
+        btnVerDetalles.setOnClickListener {
+            abrirDetallesClima()
         }
     }
 
@@ -126,14 +144,19 @@ class PrincipalActivity : AppCompatActivity() {
                 call: Call<ClimaResponse>,
                 response: Response<ClimaResponse>
             ) {
-                if (consultaActiva != "actual") return
-
                 val actual = response.body()?.actual
 
                 if (!response.isSuccessful || actual == null) {
-                    mostrarError()
+                    if (consultaActiva == "actual") {
+                        mostrarError()
+                    }
                     return
                 }
+
+                // CONSERVAR DATOS PARA DETAILS ACTIVITY
+                ultimoClima = actual
+
+                if (consultaActiva != "actual") return
 
                 tvTemperatura.text =
                     "${actual.temperatura ?: "--"} °C"
@@ -216,7 +239,7 @@ class PrincipalActivity : AppCompatActivity() {
                     val prob = lluvia[i] ?: "--"
 
                     resultado.append(
-                        "$hora  |  $temp °C  |  Lluvia: $prob%\n"
+                        "$hora | $temp °C | Lluvia: $prob%\n"
                     )
                 }
 
@@ -296,8 +319,7 @@ class PrincipalActivity : AppCompatActivity() {
 
                     resultado.append(
                         "$fecha\n" +
-                                "Máx: $maxima °C  |  " +
-                                "Mín: $minima °C\n" +
+                                "Máx: $maxima °C | Mín: $minima °C\n" +
                                 "$condicion\n\n"
                     )
                 }
@@ -318,7 +340,7 @@ class PrincipalActivity : AppCompatActivity() {
         })
     }
 
-    // CONVERTIR CODIGOS DEL CLIMA A TEXTO
+    // CONVERTIR LOS CODIGOS DEL CLIMA
     private fun descripcionClima(codigo: Int?): String {
 
         return when (codigo) {
@@ -337,7 +359,7 @@ class PrincipalActivity : AppCompatActivity() {
         }
     }
 
-    // CARGAR ICONOS USANDO GLIDE
+    // MOSTRAR IMAGEN DEL CLIMA CON GLIDE
     private fun cargarIcono(codigo: Int?) {
 
         val icono = when (codigo) {
@@ -363,11 +385,67 @@ class PrincipalActivity : AppCompatActivity() {
             .into(ivClima)
     }
 
-    // MANEJO DE ERRORES
+    // MOSTRAR ERRORES DE CONSULTA
     private fun mostrarError() {
+
+        tvTemperatura.text = "-- °C"
         tvDetalleClima.text = "Sin información"
+
         tvDatosExtra.text =
             "No se pudieron obtener los datos. " +
                     "Revisa tu conexión a Internet."
+
+        Glide.with(this).clear(ivClima)
+    }
+
+    // ACTIVIDAD 5: ENVIAR DATOS A DETAILS ACTIVITY
+    private fun abrirDetallesClima() {
+
+        val clima = ultimoClima
+
+        if (clima == null) {
+
+            Toast.makeText(
+                this,
+                "Primero consulta el clima",
+                Toast.LENGTH_SHORT
+            ).show()
+
+            return
+        }
+
+        val intent = Intent(
+            this@PrincipalActivity,
+            DetailsActivity::class.java
+        )
+
+        // PASAR INFORMACION DE OPEN-METEO
+        intent.putExtra(
+            "UBICACION",
+            "Cuernavaca, Morelos"
+        )
+
+        intent.putExtra(
+            "TEMPERATURA",
+            clima.temperatura ?: Double.NaN
+        )
+
+        intent.putExtra(
+            "HUMEDAD",
+            clima.humedad ?: -1
+        )
+
+        intent.putExtra(
+            "SENSACION",
+            clima.sensacionTermica ?: Double.NaN
+        )
+
+        intent.putExtra(
+            "ESTADO_CLIMA",
+            descripcionClima(clima.codigoClima)
+        )
+
+        // ABRIR LA PANTALLA DE DETALLES
+        startActivity(intent)
     }
 }
