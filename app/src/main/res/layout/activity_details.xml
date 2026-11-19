@@ -36,7 +36,7 @@
                     android:layout_height="75dp"
                     android:src="@android:drawable/ic_menu_myplaces"
                     android:contentDescription="Foto de perfil"
-                    android:tint="#914037"/>
+                    app:tint="#914037"/>
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -187,7 +187,7 @@
                         android:contentDescription="Agregar a favoritos"
                         android:padding="12dp"
                         android:scaleType="fitCenter"
-                        android:tint="#914037"/>
+                        app:tint="#914037"/>
 
                 </LinearLayout>
 
@@ -312,6 +312,35 @@
             </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
+
+        <!-- NUEVO APARTADO DE FAVORITOS -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:layout_marginBottom="12dp"
+            android:text="MIS CLIMAS FAVORITOS"
+            android:textColor="#914037"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+
+        <!-- MENSAJE CUANDO NO HAY FAVORITOS -->
+        <TextView
+            android:id="@+id/tvSinFavoritos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Todavía no has guardado ningún clima. Presiona el corazón de la tarjeta CLIMA para agregar uno."
+            android:textColor="#443025"
+            android:textSize="14sp"
+            android:padding="14dp"/>
+
+        <!-- CONTENEDOR DE CLIMAS FAVORITOS -->
+        <LinearLayout
+            android:id="@+id/contenedorFavoritos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="24dp"/>
 
     </LinearLayout>
 
