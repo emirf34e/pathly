@@ -1,347 +1,389 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="#E1EDC0"
-    android:fillViewport="true"
     tools:context=".DetailsActivity">
 
+
+    <!-- HEADER SUPERIOR -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="52dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#AD98A9"
+        android:elevation="4dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="4dp">
 
-        <!-- PERFIL DEL USUARIO -->
-        <com.google.android.material.card.MaterialCardView
+        <!-- NOMBRE DE LA APP -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PATHLY"
+            android:textColor="#914037"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginEnd="8dp"/>
+
+        <!-- NAVEGACION -->
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigation"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_weight="1"
+            android:background="#AD98A9"
+            app:itemIconSize="20dp"
+            app:itemIconTint="#914037"
+            app:itemTextColor="#914037"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/menu" />
+
+    </LinearLayout>
+
+
+    <!-- CONTENIDO DESLIZABLE -->
+    <ScrollView
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="5dp"
-            app:cardBackgroundColor="#AD98A9">
+            android:orientation="vertical"
+            android:padding="16dp">
 
+            <!-- PERFIL DEL USUARIO -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="5dp"
+                app:cardBackgroundColor="#AD98A9">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="18dp">
+
+                    <ImageView
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:src="@android:drawable/ic_menu_myplaces"
+                        android:contentDescription="Foto de perfil"
+                        app:tint="#914037"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Mi perfil"
+                            android:textColor="#914037"
+                            android:textSize="23sp"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Nombre completo: Pendiente"
+                            android:textColor="#443025"
+                            android:textSize="13sp"
+                            android:layout_marginTop="5dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Edad: --"
+                            android:textColor="#443025"
+                            android:textSize="13sp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Género: --"
+                            android:textColor="#443025"
+                            android:textSize="13sp"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- TITULO MI ACTIVIDAD -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MI ACTIVIDAD"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#914037"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="15dp"/>
+
+            <!-- PRIMERA FILA -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:padding="18dp">
+                android:gravity="top">
 
-                <ImageView
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
-                    android:src="@android:drawable/ic_menu_myplaces"
-                    android:contentDescription="Foto de perfil"
-                    app:tint="#914037"/>
-
-                <LinearLayout
+                <!-- TARJETA CLIMA -->
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginStart="15dp"
-                    android:orientation="vertical">
+                    android:layout_marginEnd="5dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="5dp"
+                    app:cardBackgroundColor="#37915D">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Mi perfil"
-                        android:textColor="#914037"
-                        android:textSize="23sp"
-                        android:textStyle="bold"/>
+                        android:minHeight="280dp"
+                        android:orientation="vertical"
+                        android:padding="12dp">
 
-                    <TextView
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="CLIMA"
+                            android:textColor="#FFFFFF"
+                            android:textSize="17sp"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/tvDetalleUbicacion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Ubicación"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"/>
+
+                        <TextView
+                            android:id="@+id/tvDetalleTemperatura"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="-- °C"
+                            android:textColor="#FFFFFF"
+                            android:textSize="28sp"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/tvDetalleEstado"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="Estado del clima"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"/>
+
+                        <TextView
+                            android:id="@+id/tvDetalleHumedad"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Humedad: --"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"/>
+
+                        <TextView
+                            android:id="@+id/tvDetalleSensacion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="Sensación: --"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"/>
+
+                        <!-- BOTON FAVORITO ORIGINAL -->
+                        <ImageButton
+                            android:id="@+id/btnFavorito"
+                            android:layout_width="52dp"
+                            android:layout_height="52dp"
+                            android:layout_gravity="end"
+                            android:layout_marginTop="12dp"
+                            android:background="@drawable/bg_button"
+                            android:contentDescription="Agregar a favoritos"
+                            android:padding="12dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/no_favorito"
+                            app:tint="#914037"/>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- TARJETA RECOMENDACIONES -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="5dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="5dp"
+                    app:cardBackgroundColor="#37915D">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Nombre completo: Pendiente"
-                        android:textColor="#443025"
-                        android:textSize="13sp"
-                        android:layout_marginTop="5dp"/>
+                        android:minHeight="280dp"
+                        android:orientation="vertical"
+                        android:padding="12dp">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Edad: --"
-                        android:textColor="#443025"
-                        android:textSize="13sp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="RECOMENDACIONES"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="#FFFFFF"/>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Género: --"
-                        android:textColor="#443025"
-                        android:textSize="13sp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Consulta información útil para tus recorridos."
+                            android:textColor="#FFFFFF"
+                            android:textSize="13sp"
+                            android:layout_marginTop="15dp"/>
 
-                </LinearLayout>
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
 
             </LinearLayout>
 
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- TITULO -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="MI ACTIVIDAD"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="#914037"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="15dp"/>
-
-        <!-- PRIMERA FILA -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="top">
-
-            <!-- TARJETA DEL CLIMA -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="0dp"
+            <!-- SEGUNDA FILA -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginEnd="5dp"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="5dp"
-                app:cardBackgroundColor="#37915D">
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="280dp"
-                    android:orientation="vertical"
-                    android:padding="12dp">
+                <!-- TARJETA KILOMETROS -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="175dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="5dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="5dp"
+                    app:cardBackgroundColor="#37915D">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="CLIMA"
-                        android:textSize="17sp"
-                        android:textStyle="bold"
-                        android:textColor="#FFFFFF"/>
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="12dp">
 
-                    <!-- UBICACION DEL API -->
-                    <TextView
-                        android:id="@+id/tvDetalleUbicacion"
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="KILÓMETROS RECORRIDOS"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Sin recorridos registrados."
+                            android:textColor="#FFFFFF"
+                            android:textSize="13sp"
+                            android:layout_marginTop="15dp"/>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- TARJETA HIDRATACION RESTAURADA -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="175dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="5dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="5dp"
+                    app:cardBackgroundColor="#37915D">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Ubicación"
-                        android:textSize="12sp"
-                        android:textColor="#FFFFFF"
-                        android:layout_marginTop="10dp"/>
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="12dp">
 
-                    <!-- TEMPERATURA DEL API -->
-                    <TextView
-                        android:id="@+id/tvDetalleTemperatura"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="-- °C"
-                        android:textSize="28sp"
-                        android:textStyle="bold"
-                        android:textColor="#FFFFFF"
-                        android:layout_marginTop="8dp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="RECORDATORIO DE HIDRATACIÓN"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp"
+                            android:textStyle="bold"/>
 
-                    <!-- ESTADO DEL CLIMA -->
-                    <TextView
-                        android:id="@+id/tvDetalleEstado"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Estado del clima"
-                        android:textColor="#FFFFFF"
-                        android:textSize="12sp"
-                        android:layout_marginTop="5dp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Recuerda tomar agua durante tus recorridos."
+                            android:textColor="#FFFFFF"
+                            android:textSize="13sp"
+                            android:layout_marginTop="15dp"/>
 
-                    <!-- HUMEDAD -->
-                    <TextView
-                        android:id="@+id/tvDetalleHumedad"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Humedad: --"
-                        android:textColor="#FFFFFF"
-                        android:textSize="12sp"
-                        android:layout_marginTop="8dp"/>
+                    </LinearLayout>
 
-                    <!-- SENSACION TERMICA -->
-                    <TextView
-                        android:id="@+id/tvDetalleSensacion"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Sensación: --"
-                        android:textColor="#FFFFFF"
-                        android:textSize="12sp"
-                        android:layout_marginTop="5dp"/>
+                </com.google.android.material.card.MaterialCardView>
 
-                    <!-- BOTON FAVORITOS -->
-                    <ImageButton
-                        android:id="@+id/btnFavorito"
-                        android:layout_width="52dp"
-                        android:layout_height="52dp"
-                        android:layout_gravity="end"
-                        android:layout_marginTop="12dp"
-                        android:background="@drawable/bg_button"
-                        android:src="@drawable/no_favorito"
-                        android:contentDescription="Agregar a favoritos"
-                        android:padding="12dp"
-                        android:scaleType="fitCenter"
-                        app:tint="#914037"/>
+            </LinearLayout>
 
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- TARJETA RECOMENDACIONES -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="0dp"
+            <!-- APARTADO CLIMAS FAVORITOS -->
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="5dp"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="5dp"
-                app:cardBackgroundColor="#37915D">
+                android:layout_marginTop="28dp"
+                android:layout_marginBottom="12dp"
+                android:text="MIS CLIMAS FAVORITOS"
+                android:textColor="#914037"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="280dp"
-                    android:orientation="vertical"
-                    android:padding="12dp">
+            <!-- MENSAJE SIN FAVORITOS -->
+            <TextView
+                android:id="@+id/tvSinFavoritos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="14dp"
+                android:text="Todavía no has guardado ningún clima. Presiona el corazón de la tarjeta CLIMA para agregar uno."
+                android:textColor="#443025"
+                android:textSize="14sp"/>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="RECOMENDACIONES"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:textColor="#FFFFFF"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Consulta información útil para tus recorridos."
-                        android:textColor="#FFFFFF"
-                        android:textSize="13sp"
-                        android:layout_marginTop="15dp"/>
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
+            <!-- LISTA DE FAVORITOS -->
+            <LinearLayout
+                android:id="@+id/contenedorFavoritos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="24dp"/>
 
         </LinearLayout>
 
-        <!-- SEGUNDA FILA -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="12dp">
+    </ScrollView>
 
-            <!-- TARJETA KILOMETROS -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="0dp"
-                android:layout_height="175dp"
-                android:layout_weight="1"
-                android:layout_marginEnd="5dp"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="5dp"
-                app:cardBackgroundColor="#37915D">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="12dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="KILÓMETROS RECORRIDOS"
-                        android:textColor="#FFFFFF"
-                        android:textSize="14sp"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Sin recorridos registrados."
-                        android:textColor="#FFFFFF"
-                        android:textSize="13sp"
-                        android:layout_marginTop="15dp"/>
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- TARJETA HIDRATACION -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="0dp"
-                android:layout_height="175dp"
-                android:layout_weight="1"
-                android:layout_marginStart="5dp"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="5dp"
-                app:cardBackgroundColor="#37915D">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="12dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="RECORDATORIO DE HIDRATACIÓN"
-                        android:textColor="#FFFFFF"
-                        android:textSize="14sp"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Recuerda tomar agua durante tus recorridos."
-                        android:textColor="#FFFFFF"
-                        android:textSize="13sp"
-                        android:layout_marginTop="15dp"/>
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-        </LinearLayout>
-
-        <!-- NUEVO APARTADO DE FAVORITOS -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:layout_marginBottom="12dp"
-            android:text="MIS CLIMAS FAVORITOS"
-            android:textColor="#914037"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
-
-        <!-- MENSAJE CUANDO NO HAY FAVORITOS -->
-        <TextView
-            android:id="@+id/tvSinFavoritos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Todavía no has guardado ningún clima. Presiona el corazón de la tarjeta CLIMA para agregar uno."
-            android:textColor="#443025"
-            android:textSize="14sp"
-            android:padding="14dp"/>
-
-        <!-- CONTENEDOR DE CLIMAS FAVORITOS -->
-        <LinearLayout
-            android:id="@+id/contenedorFavoritos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="24dp"/>
-
-    </LinearLayout>
-
-</ScrollView>
+</LinearLayout>

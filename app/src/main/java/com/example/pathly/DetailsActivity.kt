@@ -1,6 +1,6 @@
-
 package com.example.pathly
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.TypedValue
@@ -11,7 +11,12 @@ import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.credentials.CredentialManager
+import androidx.lifecycle.lifecycleScope
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.card.MaterialCardView
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.launch
 import java.util.Locale
 
 class DetailsActivity : AppCompatActivity() {
@@ -26,6 +31,13 @@ class DetailsActivity : AppCompatActivity() {
     private lateinit var contenedorFavoritos: LinearLayout
     private lateinit var tvSinFavoritos: TextView
     private lateinit var dbHelper: DatabaseHelper
+
+    private lateinit var bottomNavigation : BottomNavigationView
+
+    private lateinit var auth : FirebaseAuth
+
+    private lateinit var credentialManager: CredentialManager
+
 
     private var idClima = -1L
     private var ubicacion = ""
@@ -65,6 +77,12 @@ class DetailsActivity : AppCompatActivity() {
         tvSinFavoritos =
             findViewById(R.id.tvSinFavoritos)
 
+        bottomNavigation = findViewById(R.id.bottomNavigation)
+
+        auth = FirebaseAuth.getInstance()
+
+        credentialManager = CredentialManager.create(this)
+
         // BASE DE DATOS
         dbHelper = DatabaseHelper(this)
 
@@ -76,6 +94,8 @@ class DetailsActivity : AppCompatActivity() {
         btnFavorito.setOnClickListener {
             cambiarFavorito()
         }
+
+        menuNavegacion()
     }
 
     // RECIBIR INFORMACION DEL CLIMA
@@ -348,4 +368,108 @@ class DetailsActivity : AppCompatActivity() {
         dbHelper.close()
         super.onDestroy()
     }
+
+
+    private fun menuNavegacion() {
+
+        // SELECCIONAR INICIO
+        bottomNavigation.selectedItemId = R.id.nav_inicio
+
+        // EVENTOS DE NAVEGACION
+        bottomNavigation.setOnItemSelectedListener { item ->
+
+            when (item.itemId) {
+
+                R.id.nav_inicio -> {
+
+                    irAInicio()
+                    true
+                }
+
+                R.id.nav_Salir -> {
+
+                    cerrarSesionGoogle()
+                    true
+                }
+
+                else -> false
+            }
+        }
+
+
+        // CUANDO SE PRESIONA INICIO NUEVAMENTE
+        bottomNavigation.setOnItemReselectedListener { item ->
+
+            if (item.itemId == R.id.nav_inicio) {
+                irAInicio()
+            }
+        }
+    }
+
+    // REGRESAR A LA PANTALLA PRINCIPAL
+    private fun irAInicio() {
+
+        Toast.makeText(
+            this,
+            "Regresando al inicio",
+            Toast.LENGTH_SHORT
+        ).show()
+
+        val intent = Intent(
+            this,
+            PrincipalActivity::class.java
+        )
+
+        intent.flags =
+            Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                    Intent.FLAG_ACTIVITY_SINGLE_TOP
+
+        startActivity(intent)
+        finish()
+    }
+
+    private fun cerrarSesionGoogle() {
+
+        auth.signOut()
+
+        lifecycleScope.launch {
+
+            try {
+
+                credentialManager.clearCredentialState(
+                    androidx.credentials.ClearCredentialStateRequest()
+                )
+
+                Toast.makeText(
+                    this@DetailsActivity,
+                    "Sesión cerrada correctamente",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+            } catch (e: Exception) {
+
+                Toast.makeText(
+                    this@DetailsActivity,
+                    "Error al limpiar credenciales",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            val intent = Intent(
+                this@DetailsActivity,
+                MainActivity::class.java
+            )
+
+            intent.flags =
+                Intent.FLAG_ACTIVITY_NEW_TASK or
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+            startActivity(intent)
+        }
+    }
+
+
+
+
+
 }
